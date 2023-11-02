@@ -29,11 +29,11 @@
 // Core
 // -----------------------------------------------
 
-#let pin-label(loc, name) = label("page-" + str(loc.position().page) + ":" + repr(name))
+#let _pin-label(loc, name) = label("page-" + str(loc.position().page) + ":" + repr(name))
 
-#let pin(name, label-name: "pin-tracker") = {
+#let pin(name) = {
   _run-func-on-first-loc((loc) => {
-    [#metadata(label-name)#pin-label(loc, name)]
+    [#metadata("pin-tracker")#_pin-label(loc, name)]
   })
 }
 
@@ -47,7 +47,7 @@
     let positions = ()
     for pin-name in pins {
       let elems = query(
-        selector(pin-label(loc, pin-name)),
+        selector(_pin-label(loc, pin-name)),
         loc,
       )
       if elems == () {

@@ -8,8 +8,8 @@
 #let pinit-rect(
   dx: 0em,
   dy: -1em,
-  extented-width: 0em,
-  extented-height: 1.4em,
+  extended-width: 0em,
+  extended-height: 1.4em,
   ..args,
 ) = {
   pinit(args.pos(), (positions) => {
@@ -21,8 +21,8 @@
       dx: min-x + dx,
       dy: min-y + dy,
       rect(
-        width: max-x - min-x + extented-width,
-        height: max-y - min-y + extented-height,
+        width: max-x - min-x + extended-width,
+        height: max-y - min-y + extended-height,
         ..args.named()
       )
     )

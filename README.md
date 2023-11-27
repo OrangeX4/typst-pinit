@@ -37,7 +37,7 @@ A simple #pin(1)highlighted text#pin(2).
 
 ![simple-demo](./examples/simple-demo.png)
 
-A more complex example, Have a look at the source [here](./examples/equation-desc.typ).
+A more complex example, Have a look at the source [here](./examples/equation-desc.typ). (please waiting for version 0.1.2 to use it)
 
 ![equation-desc](./examples/equation-desc.png)
 

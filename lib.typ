@@ -64,6 +64,21 @@
   })
 }
 
+#let pinit-line-to(
+  pin-dx: 5pt,
+  pin-dy: 5pt,
+  body-dx: 5pt,
+  body-dy: 5pt,
+  offset-dx: 35pt,
+  offset-dy: 35pt,
+  pin-name,
+  body,
+  ..args,
+) = {
+  pinit-line(pin-name, pin-name, start-dx: pin-dx, start-dy: pin-dy, end-dx: offset-dx, end-dy: offset-dy, ..args)
+  pinit-place(pin-name, body, dx: offset-dx + body-dx, dy: offset-dy + body-dy)
+}
+
 #let pinit-arrow(
   start-dx: 0pt,
   start-dy: 0pt,

@@ -58,6 +58,7 @@ A more complex example, Have a look at the source [here](./examples/equation-des
     - [`pinit-rect`](#pinit-rect)
     - [`pinit-highlight`](#pinit-highlight)
     - [`pinit-line`](#pinit-line)
+    - [`pinit-line-to`](#pinit-line-to)
     - [`pinit-arrow`](#pinit-arrow)
     - [`pinit-point-to`](#pinit-point-to)
     - [`pinit-point-from`](#pinit-point-from)
@@ -227,6 +228,37 @@ Draw a line on the page between two specified pins with an optional stroke.
 - `end-dy`: [`length`] &mdash; Offset Y relative to the end pin.
 - `start`: [`pin`] &mdash; The start pin.
 - `end`: [`pin`] &mdash; The end pin.
+
+
+### `pinit-line-to`
+
+Draw an line from a specified pin to a point on the page with optional settings.
+
+```typ
+#let pinit-line-to(
+  stroke: 1pt,
+  pin-dx: 5pt,
+  pin-dy: 5pt,
+  body-dx: 5pt,
+  body-dy: 5pt,
+  offset-dx: 35pt,
+  offset-dy: 35pt,
+  pin-name,
+  body,
+) = { ... }
+```
+
+**Arguments:**
+
+- `stroke`: [`stroke`] &mdash; The stroke for the line.
+- `pin-dx`: [`length`] &mdash; Offset X of arrow start relative to the pin.
+- `pin-dy`: [`length`] &mdash; Offset Y of arrow start relative to the pin.
+- `body-dx`: [`length`] &mdash; Offset X of arrow end relative to the body.
+- `body-dy`: [`length`] &mdash; Offset Y of arrow end relative to the body.
+- `offset-dx`: [`length`] &mdash; Offset X relative to the pin.
+- `offset-dy`: [`length`] &mdash; Offset Y relative to the pin.
+- `pin-name`: [`pin`] &mdash; The name of the pin to start from.
+- `body`: [`content`] &mdash; The content to draw the arrow to.
 
 
 ### `pinit-arrow`

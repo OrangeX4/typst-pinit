@@ -1,8 +1,10 @@
-#import "@preview/polylux:0.3.1": *
+#import "@preview/touying:0.2.0": *
 #import "../lib.typ": *
 
-// Pages
-#set page(paper: "presentation-4-3")
+#(s.page-args.paper = "presentation-4-3")
+#let (init, slide) = utils.methods(s)
+#show: init
+
 #set text(size: 20pt, font: "Calibri", ligatures: false)
 #show heading: set text(weight: "regular")
 #show heading: set block(above: 1.4em, below: 1em)
@@ -21,7 +23,9 @@
 }
 
 // Main body
-#polylux-slide[
+#slide(self => [
+  #let (uncover, only) = utils.methods(self)
+
   = Asymptotic Notation: $O$
 
   Use #pin("h1")asymptotic notations#pin("h2") to describe asymptotic efficiency of algorithms.
@@ -73,4 +77,4 @@
     Show that the equation $(3/2)^n >= c$ \
     has infinitely many solutions for $n$.
   ])
-]
+])

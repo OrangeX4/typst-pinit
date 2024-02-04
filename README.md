@@ -41,6 +41,11 @@ A more complex example, Have a look at the source [here](./examples/equation-des
 
 ![equation-desc](./examples/equation-desc.png)
 
+---
+
+**Warning: You should add a blank line before the `#pinit-xxx` function call, otherwise it will cause misalignment.**
+
+---
 
 ## Outline
 

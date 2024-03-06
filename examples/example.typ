@@ -1,8 +1,8 @@
-#import "@preview/touying:0.2.0": *
 #import "../lib.typ": *
+#import "@preview/touying:0.3.0": *
 
 #(s.page-args.paper = "presentation-4-3")
-#let (init, slide) = utils.methods(s)
+#let (init, slides) = utils.methods(s)
 #show: init
 
 #set text(size: 20pt, font: "Calibri", ligatures: false)
@@ -21,6 +21,9 @@
   set text(fill: blue)
   body
 }
+
+#let (slide,) = utils.slides(s)
+#show: slides
 
 // Main body
 #slide(self => [
@@ -44,7 +47,7 @@
 
   $f(n) = O(g(n))$: #pin(1)$f(n)$ is *asymptotically smaller* than $g(n)$.#pin(2)
 
-  #absolute-place(dx: 550pt, dy: 320pt, image(width: 25%, "asymptotic.png"))
+  // #absolute-place(dx: 550pt, dy: 320pt, image(width: 25%, "asymptotic.png"))
 
   #pause
 

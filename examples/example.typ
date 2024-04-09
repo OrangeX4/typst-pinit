@@ -1,7 +1,7 @@
 #import "../lib.typ": *
-#import "@preview/touying:0.3.0": *
+#import "@preview/touying:0.4.0": *
 
-#(s.page-args.paper = "presentation-4-3")
+#let s = themes.default.register(aspect-ratio: "4-3")
 #let (init, slides) = utils.methods(s)
 #show: init
 
@@ -22,13 +22,11 @@
   body
 }
 
-#let (slide,) = utils.slides(s)
+#let (slide, empty-slide) = utils.slides(s)
 #show: slides
 
 // Main body
-#slide(self => [
-  #let (uncover, only) = utils.methods(self)
-
+#slide[
   = Asymptotic Notation: $O$
 
   Use #pin("h1")asymptotic notations#pin("h2") to describe asymptotic efficiency of algorithms.
@@ -47,13 +45,13 @@
 
   $f(n) = O(g(n))$: #pin(1)$f(n)$ is *asymptotically smaller* than $g(n)$.#pin(2)
 
-  // #absolute-place(dx: 550pt, dy: 320pt, image(width: 25%, "asymptotic.png"))
+  #absolute-place(dx: 550pt, dy: 320pt, image(width: 25%, "asymptotic.png"))
 
   #pause
 
   $f(n) redbold(in) O(g(n))$: $f(n)$ is *asymptotically* #redbold[at most] $g(n)$.
 
-  #only("4-", pinit-line(stroke: 3pt + crimson, start-dy: -0.25em, end-dy: -0.25em, 1, 2))
+  #pinit-line(stroke: 3pt + crimson, start-dy: -0.25em, end-dy: -0.25em, 1, 2)
 
   #pause
 
@@ -75,9 +73,9 @@
 
   #pause
 
-  #only("8-", pinit-point-to("que", fill: crimson, redbold[No.]))
-  #only("8-", pinit-point-from("ans", body-dx: -150pt)[
+  #pinit-point-to("que", fill: crimson, redbold[No.])
+  #pinit-point-from("ans", body-dx: -150pt)[
     Show that the equation $(3/2)^n >= c$ \
     has infinitely many solutions for $n$.
-  ])
-])
+  ]
+]

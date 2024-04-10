@@ -1,6 +1,6 @@
 # Pinit
 
-Pin things as you like, especially useful for creating slides.
+Relative positioning by pins, especially useful for making slides in typst.
 
 ## Example
 
@@ -12,6 +12,8 @@ Have a look at the source [here](./examples/example.typ).
 
 ### Dynamic Slides
 
+Pinit works with [Touying](https://github.com/touying-typ/touying) or [Polylux](https://github.com/andreasKroepelin/polylux) animations.
+
 Have a look at the pdf file [here](./examples/example.pdf).
 
 ![Example Pages](./examples/example-pages.png)
@@ -19,12 +21,14 @@ Have a look at the pdf file [here](./examples/example.pdf).
 
 ## Usage
 
+### Examples
+
 The idea of pinit is pinning pins on the normal flow of the text, and then placing the content on the page by `absolute-place` function.
 
 For example, we can highlight text and add a tip by pins simply:
 
 ```typ
-#import "@preview/pinit:0.1.3": *
+#import "@preview/pinit:0.1.4": *
 
 #set text(size: 24pt)
 
@@ -41,6 +45,27 @@ A more complex example, Have a look at the source [here](./examples/equation-des
 
 ![equation-desc](./examples/equation-desc.png)
 
+### Pinit for raw
+
+In the code block, we need to use a regex trick to get pinit to work, for example
+
+```typst
+#show raw: it => {
+  show regex("pin\d"): it => pin(eval(it.text.slice(3)))
+  it
+}
+
+`print(pin1"hello, world"pin2)`
+
+#pinit-highlight(1, 2)
+```
+
+![equation-desc](./examples/pinit-for-raw.png)
+
+Note that typst's code highlighting breaks up the text, causing overly complex regular expressions such as '#pin\(.*?\)' to not work properly.
+
+However, you may want to consider putting it in a comment to avoid highlighting the text and breaking it up.
+
 ---
 
 **Warning: You should add a blank line before the `#pinit-xxx` function call, otherwise it will cause misalignment.**
@@ -54,6 +79,8 @@ A more complex example, Have a look at the source [here](./examples/equation-des
     - [Pin things as you like](#pin-things-as-you-like)
     - [Dynamic Slides](#dynamic-slides)
   - [Usage](#usage)
+    - [Examples](#examples)
+    - [Pinit for raw](#pinit-for-raw)
   - [Outline](#outline)
   - [Reference](#reference)
     - [`pin`](#pin)

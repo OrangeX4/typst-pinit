@@ -9,10 +9,10 @@
   // update, then ignores all subsequent updates
   let lbl = label(label-name)
   [#metadata(label-name)#lbl]
-  locate(loc => {
-    let use-loc = query(selector(lbl).before(loc), loc).last().location()
+  context {
+    let use-loc = query(selector(lbl).before(here())).last().location()
     func(use-loc)
-  })
+  }
 }
 
 /// Place content at a specific location on the page relative to the top left corner
@@ -48,7 +48,6 @@
     for pin-name in pins {
       let elems = query(
         selector(_pin-label(loc, pin-name)),
-        loc,
       )
       if elems == () {
         return

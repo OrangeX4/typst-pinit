@@ -111,7 +111,7 @@ Pinning a pin in text, the pin is supposed to be unique in one page.
 
 **Arguments:**
 
-- `name`: [`integer` or `string` or `any`] &mdash; Name of pin, which can be any types with unique `repr()` return value, such as integer and string.
+- `name`: [`int` or `str` or `any`] &mdash; Name of pin, which can be any types with unique `repr()` return value, such as integer and string.
 
 ### `pinit`
 
@@ -137,7 +137,7 @@ Place content at a specific location on the page relative to the top left corner
 #let absolute-place(
   dx: 0em,
   dy: 0em,
-  content,
+  body,
 ) = { .. }
 ```
 
@@ -407,16 +407,15 @@ Draw a simple arrow on the page with optional settings, implemented by [`polygon
 - `start`: [`point`] &mdash; The starting point of the arrow.
 - `end`: [`point`] &mdash; The ending point of the arrow.
 - `thickness`: [`length`] &mdash; The thickness of the arrow.
-- `arrow-width`: [`integer` or `float`] &mdash; The width of the arrowhead relative to thickness.
-- `arrow-height`: [`integer` or `float`] &mdash; The height of the arrowhead relative to thickness.
-- `inset`: [`integer` or `float`] &mdash; The inset value for the arrowhead relative to thickness.
+- `arrow-width`: [`int` or `float`] &mdash; The width of the arrowhead relative to thickness.
+- `arrow-height`: [`int` or `float`] &mdash; The height of the arrowhead relative to thickness.
+- `inset`: [`int` or `float`] &mdash; The inset value for the arrowhead relative to thickness.
 - `tail`: [`array`] &mdash; The tail settings for the arrow.
 
 
 ## Acknowledgements
 
 - Some of the inspirations and codes comes from [typst-drafting](https://github.com/ntjess/typst-drafting).
-- Thanks to [polylux](https://github.com/andreasKroepelin/polylux), you can create beautiful and dynamic slides by [polylux](https://github.com/andreasKroepelin/polylux) simply.
 - The concise and aesthetic example slide style come from course *Data Structures and Algorithms* of [Chaodong ZHENG](https://chaodong.me/).
 
 

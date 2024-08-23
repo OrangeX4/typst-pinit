@@ -23,8 +23,9 @@
   ..args,
 ) = {
   pinit(
-    args.pos(),
-    positions => {
+    ..args.pos(),
+    callback: (..positions) => {
+      positions = positions.pos()
       let min-x = calc.min(..positions.map(loc => loc.x))
       let max-x = calc.max(..positions.map(loc => loc.x))
       let min-y = calc.min(..positions.map(loc => loc.y))
@@ -96,18 +97,19 @@
   end,
 ) = {
   pinit(
-    (start, end),
-    positions => {
+    start,
+    end,
+    callback: (start-pos, end-pos) => {
       absolute-place(
         line(
           stroke: stroke,
           start: (
-            positions.at(0).x + start-dx,
-            positions.at(0).y + start-dy,
+            start-pos.x + start-dx,
+            start-pos.y + start-dy,
           ),
           end: (
-            positions.at(1).x + end-dx,
-            positions.at(1).y + end-dy,
+            end-pos.x + end-dx,
+            end-pos.y + end-dy,
           ),
         ),
       )
@@ -160,17 +162,18 @@
   ..args,
 ) = {
   pinit(
-    (start, end),
-    locations => {
+    start,
+    end,
+    callback: (start-pos, end-pos) => {
       absolute-place(
         simple-arrow(
           start: (
-            locations.at(0).x + start-dx,
-            locations.at(0).y + start-dy,
+            start-pos.x + start-dx,
+            start-pos.y + start-dy,
           ),
           end: (
-            locations.at(1).x + end-dx,
-            locations.at(1).y + end-dy,
+            end-pos.x + end-dx,
+            end-pos.y + end-dy,
           ),
           ..args,
         ),
@@ -198,17 +201,18 @@
   ..args,
 ) = {
   pinit(
-    (start, end),
-    locations => {
+    start,
+    end,
+    callback: (start-pos, end-pos) => {
       absolute-place(
         double-arrow(
           start: (
-            locations.at(0).x + start-dx,
-            locations.at(0).y + start-dy,
+            start-pos.x + start-dx,
+            start-pos.y + start-dy,
           ),
           end: (
-            locations.at(1).x + end-dx,
-            locations.at(1).y + end-dy,
+            end-pos.x + end-dx,
+            end-pos.y + end-dy,
           ),
           ..args,
         ),
@@ -240,7 +244,11 @@
   body,
   ..args,
 ) = {
-  let arrow-fn = if double { pinit-double-arrow } else { pinit-arrow }
+  let arrow-fn = if double {
+    pinit-double-arrow
+  } else {
+    pinit-arrow
+  }
   arrow-fn(pin-name, pin-name, start-dx: pin-dx, start-dy: pin-dy, end-dx: offset-dx, end-dy: offset-dy, ..args)
   pinit-place(pin-name, body, dx: offset-dx + body-dx, dy: offset-dy + body-dy)
 }
@@ -269,7 +277,11 @@
   body,
   ..args,
 ) = {
-  let arrow-fn = if double { pinit-double-arrow } else { pinit-arrow }
+  let arrow-fn = if double {
+    pinit-double-arrow
+  } else {
+    pinit-arrow
+  }
   arrow-fn(pin-name, pin-name, start-dx: offset-dx, start-dy: offset-dy, end-dx: pin-dx, end-dy: pin-dy, ..args)
   pinit-place(pin-name, body, dx: offset-dx + body-dx, dy: offset-dy + body-dy)
 }

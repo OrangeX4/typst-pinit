@@ -47,30 +47,37 @@
 
 /// Query positions of pins in the same page, then call the callback function `func`.
 ///
-/// - `pins`: [`pin` or `array`] &mdash; Names of pins you want to query. It is supposed to be a pin, or an array of pins.
-/// - `func`: [`(positions) => { .. }`] &mdash; A callback function accepting an array of positions (or a single position) as a parameter. Each position is a dictionary like `(page: 1, x: 319.97pt, y: 86.66pt)`. You can use the `absolute-place` function in this callback function to display something around the pins.
-#let pinit(pins, func) = {
-  let is-single-arg = false
-  if type(pins) != array {
-    is-single-arg = true
-    pins = (pins,)
-  }
+/// - `callback`: [`(..positions) => { .. }`] &mdash; A callback function accepting an array of positions (or a single position) as a parameter. Each position is a dictionary like `(page: 1, x: 319.97pt, y: 86.66pt)`. You can use the `absolute-place` function in this callback function to display something around the pins.
+/// - `..pins`: [`pin`] &mdash; Names of pins you want to query. It is supposed to be arguments composed with pin or a group of pins.
+#let pinit(callback: none, ..pins) = {
+  assert(callback != none, message: "The callback function is required.")
+  assert(pins.named().len() == 0, message: "The pin names should not be named.")
+  pins = pins.pos()
   _run-func-on-first-loc(loc => {
     let positions = ()
-    for pin-name in pins {
-      let elems = query(
-        selector(_pin-label(loc, pin-name)),
-      )
-      if elems == () {
-        return
+    for pin-group in pins {
+      let poss = ()
+      if type(pin-group) != array {
+        pin-group = (pin-group,)
       }
-      positions.push(elems.at(0).location().position())
+      for pin-name in pin-group {
+        let elems = query(
+          selector(_pin-label(loc, pin-name)),
+        )
+        assert(elems.len() > 0, message: "Pin not found: " + repr(pin-name))
+        poss.push(elems.at(0).location().position())
+      }
+      if poss.len() == 1 {
+        positions.push(poss.at(0))
+      } else {
+        positions.push((
+          page: poss.at(0).page,
+          x: poss.map(p => p.x).sum() / poss.len(),
+          y: poss.map(p => p.y).sum() / poss.len(),
+        ))
+      }
     }
-    if (is-single-arg) {
-      func(positions.at(0))
-    } else {
-      func(positions)
-    }
+    callback(..positions)
   })
 }
 
@@ -88,7 +95,7 @@
 ) = {
   pinit(
     pin-name,
-    pos => {
+    callback: pos => {
       absolute-place(dx: pos.x + dx, dy: pos.y + dy, body)
     },
   )

@@ -41,6 +41,22 @@ A simple #pin(1)highlighted text#pin(2).
 
 ![simple-demo](./examples/simple-demo.png)
 
+If you want to place the content relative to the center of some pins, you use a array of pins:
+
+```typ
+#import "@preview/pinit:0.1.4": *
+
+#set text(size: 12pt)
+
+A simple #pin(1)highlighted text#pin(2).
+
+#pinit-highlight(1, 2)
+
+#pinit-point-from((1, 2))[It is simple.]
+```
+
+![simple-demo2](./examples/simple-demo2.png)
+
 A more complex example, Have a look at the source [here](./examples/equation-desc.typ).
 
 ![equation-desc](./examples/equation-desc.png)
@@ -97,6 +113,13 @@ However, you may want to consider putting it in a comment to avoid highlighting 
     - [`pinit-point-from`](#pinit-point-from)
     - [`simple-arrow`](#simple-arrow)
     - [`double-arrow`](#double-arrow)
+  - [Changelog](#changelog)
+    - [0.2.0](#020)
+    - [0.1.4](#014)
+    - [0.1.3](#013)
+    - [0.1.2](#012)
+    - [0.1.1](#011)
+    - [0.1.0](#010)
   - [Acknowledgements](#acknowledgements)
   - [License](#license)
 
@@ -117,16 +140,16 @@ Pinning a pin in text, the pin is supposed to be unique in one page.
 
 ### `pinit`
 
-Query positions of pins in the same page, then call the callback function `func`.
+Query positions of pins in the same page, then call the callback function `callback`.
 
 ```typ
-#let pinit(pins, func) = { .. }
+#let pinit(callback: none, ..pins) = { .. }
 ```
 
 **Arguments:**
 
-- `pins`: [`pin` or `array`] &mdash; Names of pins you want to query. It is supposed to be a pin, or an array of pins.
-- `func`: [`(positions) => { .. }`] &mdash; A callback function accepting an array of positions (or a single position) as a parameter. Each position is a dictionary like `(page: 1, x: 319.97pt, y: 86.66pt)`. You can use the `absolute-place` function in this callback function to display something around the pins.
+- `..pins`: [`pin`] &mdash; Names of pins you want to query. It is supposed to be arguments of pin or a group of pins.
+- `callback`: [`(..positions) => { .. }`] &mdash; A callback function accepting an array of positions (or a single position) as a parameter. Each position is a dictionary like `(page: 1, x: 319.97pt, y: 86.66pt)`. You can use the `absolute-place` function in this callback function to display something around the pins.
 
 
 ### `absolute-place`
@@ -475,6 +498,46 @@ Draw a double arrow on the page with optional settings, implemented by [`polygon
 - `arrow-height`: [`int` or `float`] &mdash; The height of the arrowhead relative to thickness.
 - `inset`: [`int` or `float`] &mdash; The inset value for the arrowhead relative to thickness.
 - `tail`: [`array`] &mdash; The tail settings for the arrow.
+
+
+
+## Changelog
+
+
+### 0.2.0
+
+- **Breaking changes**: `#pinit(pins, func)` is replaced by `#pinit(callback: none, ..pins)` and the callback argument will receive an `(..positions) => { .. }` function instead of a `(positions) => { .. }` function.
+  - **Migration**: you need to use a named argument `callback: (..positions) => { .. }` to specify the callback function.
+  - **Migration**: you cannot use a array as a pin name. Now `#pinit((pin1, pin2), callback: func)` means that we use `pin1` and `pin2` as a group of pins, and the callback function will receive **a single position** (the center of the bounding box of `pin1` and `pin2`).
+  - **Benefit**: you can use `#pinit(pin1, pin2, callback: func)` to query the positions of `pin1` and `pin2` separately, and `#pinit((pin1, pin2), callback: func)` to query the position of the center of the bounding box of `pin1` and `pin2`.
+- Add `double-arrow` function and `pinit-double-arrow` function.
+- Add `double` argument for `pinit-point-to` and `pinit-point-from` functions.
+- Better comments and documentation.
+
+
+### 0.1.4
+
+- Update documentation.
+
+
+### 0.1.3
+
+- Add `pinit-line-to` function.
+
+
+### 0.1.2
+
+- Add em unit support for `simple-arrow`.
+
+
+### 0.1.1
+
+- Fix some bugs.
+
+
+### 0.1.0
+
+- Initial release.
 
 
 ## Acknowledgements

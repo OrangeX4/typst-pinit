@@ -1,4 +1,4 @@
-#import "simple-arrow.typ": simple-arrow
+#import "simple-arrow.typ": simple-arrow, double-arrow
 #import "pinit-core.typ": *
 
 // -----------------------------------------------
@@ -179,6 +179,44 @@
   )
 }
 
+/// Draw an double arrow between two specified pins with optional settings.
+///
+/// - `start-dx`: [`length`] &mdash; Offset X relative to the start pin.
+/// - `start-dy`: [`length`] &mdash; Offset Y relative to the start pin.
+/// - `end-dx`: [`length`] &mdash; Offset X relative to the end pin.
+/// - `end-dy`: [`length`] &mdash; Offset Y relative to the end pin.
+/// - `start`: [`pin`] &mdash; The start pin.
+/// - `end`: [`pin`] &mdash; The end pin.
+/// - `...args`: Additional arguments or settings for [`double-arrow`](#double-arrow), like `fill`, `stroke` and `thickness`.
+#let pinit-double-arrow(
+  start-dx: 0pt,
+  start-dy: 0pt,
+  end-dx: 0pt,
+  end-dy: 0pt,
+  start,
+  end,
+  ..args,
+) = {
+  pinit(
+    (start, end),
+    locations => {
+      absolute-place(
+        double-arrow(
+          start: (
+            locations.at(0).x + start-dx,
+            locations.at(0).y + start-dy,
+          ),
+          end: (
+            locations.at(1).x + end-dx,
+            locations.at(1).y + end-dy,
+          ),
+          ..args,
+        ),
+      )
+    },
+  )
+}
+
 /// Draw an arrow from a specified pin to a point on the page with optional settings.
 /// - `pin-dx`: [`length`] &mdash; Offset X of arrow start relative to the pin.
 /// - `pin-dy`: [`length`] &mdash; Offset Y of arrow start relative to the pin.
@@ -186,6 +224,7 @@
 /// - `body-dy`: [`length`] &mdash; Offset Y of arrow end relative to the body.
 /// - `offset-dx`: [`length`] &mdash; Offset X relative to the pin.
 /// - `offset-dy`: [`length`] &mdash; Offset Y relative to the pin.
+/// - `double`: [`bool`] &mdash; Draw a double arrow, default is `false`.
 /// - `pin-name`: [`pin`] &mdash; The name of the pin to start from.
 /// - `body`: [`content`] &mdash; The content to draw the arrow to.
 /// - `...args`: Additional arguments or settings for [`simple-arrow`](#simple-arrow), like `fill`, `stroke` and `thickness`.
@@ -196,11 +235,13 @@
   body-dy: 5pt,
   offset-dx: 35pt,
   offset-dy: 35pt,
+  double: false,
   pin-name,
   body,
   ..args,
 ) = {
-  pinit-arrow(pin-name, pin-name, start-dx: pin-dx, start-dy: pin-dy, end-dx: offset-dx, end-dy: offset-dy, ..args)
+  let arrow-fn = if double { pinit-double-arrow } else { pinit-arrow }
+  arrow-fn(pin-name, pin-name, start-dx: pin-dx, start-dy: pin-dy, end-dx: offset-dx, end-dy: offset-dy, ..args)
   pinit-place(pin-name, body, dx: offset-dx + body-dx, dy: offset-dy + body-dy)
 }
 
@@ -212,6 +253,7 @@
 /// - `body-dy`: [`length`] &mdash; Offset Y relative to the body.
 /// - `offset-dx`: [`length`] &mdash; Offset X relative to the left edge of the page.
 /// - `offset-dy`: [`length`] &mdash; Offset Y relative to the top edge of the page.
+/// - `double`: [`bool`] &mdash; Draw a double arrow, default is `false`.
 /// - `pin-name`: [`pin`] &mdash; The name of the pin that the arrow to.
 /// - `body`: [`content`] &mdash; The content to draw the arrow from.
 /// - `...args`: Additional arguments or settings for [`simple-arrow`](#simple-arrow), like `fill`, `stroke` and `thickness`.
@@ -222,10 +264,12 @@
   body-dy: 5pt,
   offset-dx: 35pt,
   offset-dy: 35pt,
+  double: false,
   pin-name,
   body,
   ..args,
 ) = {
-  pinit-arrow(pin-name, pin-name, start-dx: offset-dx, start-dy: offset-dy, end-dx: pin-dx, end-dy: pin-dy, ..args)
+  let arrow-fn = if double { pinit-double-arrow } else { pinit-arrow }
+  arrow-fn(pin-name, pin-name, start-dx: offset-dx, start-dy: offset-dy, end-dx: pin-dx, end-dy: pin-dy, ..args)
   pinit-place(pin-name, body, dx: offset-dx + body-dx, dy: offset-dy + body-dy)
 }

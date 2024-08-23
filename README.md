@@ -92,9 +92,11 @@ However, you may want to consider putting it in a comment to avoid highlighting 
     - [`pinit-line`](#pinit-line)
     - [`pinit-line-to`](#pinit-line-to)
     - [`pinit-arrow`](#pinit-arrow)
+    - [`pinit-double-arrow`](#pinit-double-arrow)
     - [`pinit-point-to`](#pinit-point-to)
     - [`pinit-point-from`](#pinit-point-from)
     - [`simple-arrow`](#simple-arrow)
+    - [`double-arrow`](#double-arrow)
   - [Acknowledgements](#acknowledgements)
   - [License](#license)
 
@@ -320,6 +322,33 @@ Draw an arrow between two specified pins with optional settings.
 - `...args`: Additional arguments or settings for [`simple-arrow`](#simple-arrow), like `fill`, `stroke` and `thickness`.
 
 
+### `pinit-double-arrow`
+
+Draw an double arrow between two specified pins with optional settings.
+
+```typ
+#let pinit-double-arrow(
+  start-dx: 0pt,
+  start-dy: 0pt,
+  end-dx: 0pt,
+  end-dy: 0pt,
+  start,
+  end,
+  ..args,
+) = { ... }
+```
+
+**Arguments:**
+
+- `start-dx`: [`length`] &mdash; Offset X relative to the start pin.
+- `start-dy`: [`length`] &mdash; Offset Y relative to the start pin.
+- `end-dx`: [`length`] &mdash; Offset X relative to the end pin.
+- `end-dy`: [`length`] &mdash; Offset Y relative to the end pin.
+- `start`: [`pin`] &mdash; The start pin.
+- `end`: [`pin`] &mdash; The end pin.
+- `...args`: Additional arguments or settings for [`double-arrow`](#double-arrow), like `fill`, `stroke` and `thickness`.
+
+
 ### `pinit-point-to`
 
 Draw an arrow from a specified pin to a point on the page with optional settings.
@@ -332,6 +361,7 @@ Draw an arrow from a specified pin to a point on the page with optional settings
   body-dy: 5pt,
   offset-dx: 35pt,
   offset-dy: 35pt,
+  double: false,
   pin-name,
   body,
   ..args,
@@ -346,6 +376,7 @@ Draw an arrow from a specified pin to a point on the page with optional settings
 - `body-dy`: [`length`] &mdash; Offset Y of arrow end relative to the body.
 - `offset-dx`: [`length`] &mdash; Offset X relative to the pin.
 - `offset-dy`: [`length`] &mdash; Offset Y relative to the pin.
+- `double`: [`bool`] &mdash; Draw a double arrow, default is `false`.
 - `pin-name`: [`pin`] &mdash; The name of the pin to start from.
 - `body`: [`content`] &mdash; The content to draw the arrow to.
 - `...args`: Additional arguments or settings for [`simple-arrow`](#simple-arrow), like `fill`, `stroke` and `thickness`.
@@ -363,6 +394,7 @@ Draw an arrow from a point on the page to a specified pin with optional settings
   body-dy: 5pt,
   offset-dx: 35pt,
   offset-dy: 35pt,
+  double: false,
   pin-name,
   body,
   ..args,
@@ -377,6 +409,7 @@ Draw an arrow from a point on the page to a specified pin with optional settings
 - `body-dy`: [`length`] &mdash; Offset Y relative to the body.
 - `offset-dx`: [`length`] &mdash; Offset X relative to the left edge of the page.
 - `offset-dy`: [`length`] &mdash; Offset Y relative to the top edge of the page.
+- `double`: [`bool`] &mdash; Draw a double arrow, default is `false`.
 - `pin-name`: [`pin`] &mdash; The name of the pin that the arrow to.
 - `body`: [`content`] &mdash; The content to draw the arrow from.
 - `...args`: Additional arguments or settings for [`simple-arrow`](#simple-arrow), like `fill`, `stroke` and `thickness`.
@@ -413,10 +446,42 @@ Draw a simple arrow on the page with optional settings, implemented by [`polygon
 - `tail`: [`array`] &mdash; The tail settings for the arrow.
 
 
+### `double-arrow`
+
+Draw a double arrow on the page with optional settings, implemented by [`polygon`](https://typst.app/docs/reference/visualize/polygon/).
+
+```typ
+#let double-arrow(
+  fill: black,
+  stroke: 0pt,
+  start: (0pt, 0pt),
+  end: (30pt, 0pt),
+  thickness: 2pt,
+  arrow-width: 4,
+  arrow-height: 4,
+  inset: 0.5,
+  tail: (),
+) = { ... }
+```
+
+**Arguments:**
+
+- `fill`: [`color`] &mdash; The fill color for the arrow.
+- `stroke`: [`stroke`] &mdash; The stroke for the arrow.
+- `start`: [`point`] &mdash; The starting point of the arrow.
+- `end`: [`point`] &mdash; The ending point of the arrow.
+- `thickness`: [`length`] &mdash; The thickness of the arrow.
+- `arrow-width`: [`int` or `float`] &mdash; The width of the arrowhead relative to thickness.
+- `arrow-height`: [`int` or `float`] &mdash; The height of the arrowhead relative to thickness.
+- `inset`: [`int` or `float`] &mdash; The inset value for the arrowhead relative to thickness.
+- `tail`: [`array`] &mdash; The tail settings for the arrow.
+
+
 ## Acknowledgements
 
 - Some of the inspirations and codes comes from [typst-drafting](https://github.com/ntjess/typst-drafting).
 - The concise and aesthetic example slide style come from course *Data Structures and Algorithms* of [Chaodong ZHENG](https://chaodong.me/).
+- Thank [PaulS](https://github.com/psads-git) for double arrow feature.
 
 
 ## License

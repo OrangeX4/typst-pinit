@@ -61,6 +61,28 @@ A more complex example, Have a look at the source [here](./examples/equation-des
 
 ![equation-desc](./examples/equation-desc.png)
 
+
+### Fletcher support
+
+[Fletcher](https://github.com/Jollywatt/typst-fletcher) is a powerful Typst package for drawing diagrams with arrows. We can use fletcher to draw more complex arrows.
+
+[`pinit-fletcher-edge`](#pinit-fletcher-edge)
+
+```typst
+#import "@preview/pinit:0.2.0": *
+#import "@preview/fletcher:0.5.1"
+
+Con#pin(1)#h(4em)#pin(2)nect
+
+#pinit-fletcher-edge(
+  fletcher, 1, end: 2, (1, 0), [bend], bend: -20deg, "<->",
+  decorations: fletcher.cetz.decorations.wave.with(amplitude: .1),
+)
+```
+
+![fletcher](./examples/fletcher.png)
+
+
 ### Pinit for raw
 
 In the code block, we need to use a regex trick to get pinit to work, for example
@@ -96,6 +118,7 @@ However, you may want to consider putting it in a comment to avoid highlighting 
     - [Dynamic Slides](#dynamic-slides)
   - [Usage](#usage)
     - [Examples](#examples)
+    - [Fletcher support](#fletcher-support)
     - [Pinit for raw](#pinit-for-raw)
   - [Outline](#outline)
   - [Reference](#reference)
@@ -113,6 +136,7 @@ However, you may want to consider putting it in a comment to avoid highlighting 
     - [`pinit-point-from`](#pinit-point-from)
     - [`simple-arrow`](#simple-arrow)
     - [`double-arrow`](#double-arrow)
+    - [`pinit-fletcher-edge`](#pinit-fletcher-edge)
   - [Changelog](#changelog)
     - [0.2.0](#020)
     - [0.1.4](#014)
@@ -501,6 +525,49 @@ Draw a double arrow on the page with optional settings, implemented by [`polygon
 
 
 
+### `pinit-fletcher-edge`
+
+Draw a connecting line or arc in an fletcher arrow diagram.
+
+```typ
+#let pinit-fletcher-edge(
+  fletcher,
+  start,
+  end: none,
+  start-dx: 0pt,
+  start-dy: 0pt,
+  end-dx: 0pt,
+  end-dy: 0pt,
+  width-scale: 100%,
+  height-scale: 100%,
+  default-width: 30pt,
+  default-height: 30pt,
+	..args,
+) = { ... }
+```
+
+**Arguments:**
+
+- `fletcher` (module): The Fletcher module. You can import it with something like `#import "@preview/fletcher:0.5.1"`
+- `start` (pin): The starting pin of the edge. It is assumed that the pin is at the *origin point (0, 0)* of the edge.
+- `end` (pin): The ending pin of the edge. If not provided, the edge will use default values for the width and height.
+- `start-dx` (length): The x-offset of the starting pin. You should use pt units.
+- `start-dy` (length): The y-offset of the starting pin. You should use pt units.
+- `end-dx` (length): The x-offset of the ending pin. You should use pt units.
+- `end-dy` (length): The y-offset of the ending pin. You should use pt units.
+- `width-scale` (percent): The width scale of the edge. The default value is 100%.
+  If you set the width scale to 50%, the width of the edge will be half of the default width. Then you can use `"r,r"` which is equivalent to single `"r"`.
+- `height-scale` (percent): The height scale of the edge. The default value is 100%.
+- `default-width` (length): The default width of the edge. The default value is 30pt, which will only be used if the end pin is not provided or the width is 0pt or 0em.
+- `default-height` (length): The default height of the edge. The default value is 30pt, which will only be used if the end pin is not provided or the height is 0pt or 0em.
+- `..args` (any): An edge's positional arguments may specify:
+  - the edge's #param[edge][vertices], each specified with a CeTZ-style coordinate
+  - the #param[edge][label] content
+  - arrow #param[edge][marks], like `"=>"` or `"<<-|-o"`
+  - other style flags, like `"double"` or `"wave"`
+
+
+
 ## Changelog
 
 
@@ -510,6 +577,7 @@ Draw a double arrow on the page with optional settings, implemented by [`polygon
   - **Migration**: you need to use a named argument `callback: (..positions) => { .. }` to specify the callback function.
   - **Migration**: you cannot use a array as a pin name. Now `#pinit((pin1, pin2), callback: func)` means that we use `pin1` and `pin2` as a group of pins, and the callback function will receive **a single position** (the center of the bounding box of `pin1` and `pin2`).
   - **Benefit**: you can use `#pinit(pin1, pin2, callback: func)` to query the positions of `pin1` and `pin2` separately, and `#pinit((pin1, pin2), callback: func)` to query the position of the center of the bounding box of `pin1` and `pin2`.
+- Add `pinit-fletcher-edge` function to draw a connecting line or arc in an fletcher arrow diagram.
 - Add `double-arrow` function and `pinit-double-arrow` function.
 - Add `double` argument for `pinit-point-to` and `pinit-point-from` functions.
 - Better comments and documentation.
@@ -545,6 +613,7 @@ Draw a double arrow on the page with optional settings, implemented by [`polygon
 - Some of the inspirations and codes comes from [typst-drafting](https://github.com/ntjess/typst-drafting).
 - The concise and aesthetic example slide style come from course *Data Structures and Algorithms* of [Chaodong ZHENG](https://chaodong.me/).
 - Thank [PaulS](https://github.com/psads-git) for double arrow feature.
+- Thank [Jollywatt](https://github.com/Jollywatt) for fletcher package.
 
 
 ## License

@@ -1,5 +1,5 @@
 #import "../lib.typ": *
-#import "@preview/touying:0.4.0": *
+#import "@preview/touying:0.4.2": *
 
 #let s = themes.default.register(aspect-ratio: "4-3")
 #let (init, slides) = utils.methods(s)

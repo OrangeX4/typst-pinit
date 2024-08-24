@@ -1,4 +1,5 @@
 #import "simple-arrow.typ": simple-arrow, double-arrow
+#import "pinit-fletcher.typ": pinit-fletcher-edge
 #import "pinit-core.typ": *
 
 // -----------------------------------------------

@@ -1,9 +1,6 @@
 #import "../lib.typ": *
-#import "@preview/touying:0.4.2": *
-
-#let s = themes.default.register(aspect-ratio: "4-3")
-#let (init, slides) = utils.methods(s)
-#show: init
+#import "@preview/touying:0.5.3": *
+#import themes.default: *
 
 #set text(size: 20pt, font: "Calibri", ligatures: false)
 #show heading: set text(weight: "regular")
@@ -22,8 +19,7 @@
   body
 }
 
-#let (slide, empty-slide) = utils.slides(s)
-#show: slides
+#show: default-theme.with(aspect-ratio: "4-3")
 
 // Main body
 #slide[
@@ -45,7 +41,7 @@
 
   $f(n) = O(g(n))$: #pin(1)$f(n)$ is *asymptotically smaller* than $g(n)$.#pin(2)
 
-  #absolute-place(dx: 550pt, dy: 320pt, image(width: 25%, "asymptotic.png"))
+  #absolute-place(dx: 550pt, dy: 300pt, image(width: 25%, "asymptotic.png"))
 
   #pause
 

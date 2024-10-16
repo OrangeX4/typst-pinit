@@ -14,7 +14,7 @@ Have a look at the source [here](./examples/example.typ).
 
 Pinit works with [Touying](https://github.com/touying-typ/touying) or [Polylux](https://github.com/andreasKroepelin/polylux) animations.
 
-Have a look at the pdf file [here](./examples/example.pdf).
+Have a look at the pdf file [here](https://github.com/OrangeX4/typst-pinit/blob/main/examples/example.pdf).
 
 ![Example Pages](./examples/example-pages.png)
 
@@ -28,7 +28,7 @@ The idea of pinit is pinning pins on the normal flow of the text, and then placi
 For example, we can highlight text and add a tip by pins simply:
 
 ```typ
-#import "@preview/pinit:0.2.0": *
+#import "@preview/pinit:0.2.1": *
 
 #set text(size: 24pt)
 
@@ -44,7 +44,7 @@ A simple #pin(1)highlighted text#pin(2).
 If you want to place the content relative to the center of some pins, you use a array of pins:
 
 ```typ
-#import "@preview/pinit:0.2.0": *
+#import "@preview/pinit:0.2.1": *
 
 #set text(size: 12pt)
 
@@ -62,14 +62,14 @@ A more complex example, Have a look at the source [here](./examples/equation-des
 ![equation-desc](./examples/equation-desc.png)
 
 
-### Fletcher support
+### Fletcher edge support
 
 [Fletcher](https://github.com/Jollywatt/typst-fletcher) is a powerful Typst package for drawing diagrams with arrows. We can use fletcher to draw more complex arrows.
 
 [`pinit-fletcher-edge`](#pinit-fletcher-edge)
 
 ```typst
-#import "@preview/pinit:0.2.0": *
+#import "@preview/pinit:0.2.1": *
 #import "@preview/fletcher:0.5.1"
 
 Con#pin(1)#h(4em)#pin(2)nect
@@ -124,7 +124,7 @@ However, you may want to consider putting it in a comment to avoid highlighting 
     - [Dynamic Slides](#dynamic-slides)
   - [Usage](#usage)
     - [Examples](#examples)
-    - [Fletcher support](#fletcher-support)
+    - [Fletcher edge support](#fletcher-edge-support)
     - [Pinit for raw](#pinit-for-raw)
   - [Notice](#notice)
   - [Outline](#outline)

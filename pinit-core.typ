@@ -1,19 +1,4 @@
-// -----------------------------------------------
-// Code from https://github.com/ntjess/typst-drafting
-// -----------------------------------------------
-#let _run-func-on-first-loc(func, label-name: "loc-tracker") = {
-  // Some placements are determined by locations relative to a fixed point. However, typst
-  // will automatically re-evaluate that computation several times, since the usage
-  // of that computation will change where an element is placed (and therefore update its
-  // location, and so on). Get around this with a state that only checks for the first
-  // update, then ignores all subsequent updates
-  let lbl = label(label-name)
-  [#metadata(label-name)#lbl]
-  context {
-    let use-loc = query(selector(lbl).before(here())).last().location()
-    func(use-loc)
-  }
-}
+#let empty-box = box(height: 0pt, width: 0pt, inset: 0pt, outset: 0pt)
 
 /// Place content at a specific location on the page relative to the top left corner
 /// of the page, regardless of margins, current container, etc.
@@ -24,10 +9,10 @@
 /// - `dy`: [`length`] &mdash; Length in the y-axis relative to the top edge of the page.
 /// - `body`: [`content`] &mdash; The content you want to place.
 #let absolute-place(dx: 0em, dy: 0em, body) = {
-  _run-func-on-first-loc(loc => {
-    let pos = loc.position()
+  context {
+    let pos = here().position()
     place(dx: -pos.x + dx, dy: -pos.y + dy, body)
-  })
+  }
 }
 
 // -----------------------------------------------
@@ -40,9 +25,9 @@
 ///
 /// - `name`: [`integer` or `string` or `any`] &mdash; Name of pin, which can be any types with unique `repr()` return value, such as integer and string.
 #let pin(name) = {
-  _run-func-on-first-loc(loc => {
-    [#metadata("pin-tracker")#_pin-label(loc, name)]
-  })
+  context {
+    [#empty-box#_pin-label(here(), name)]
+  }
 }
 
 /// Query positions of pins in the same page, then call the callback function `func`.
@@ -53,7 +38,7 @@
   assert(callback != none, message: "The callback function is required.")
   assert(pins.named().len() == 0, message: "The pin names should not be named.")
   pins = pins.pos()
-  _run-func-on-first-loc(loc => {
+  context {
     let positions = ()
     for pin-group in pins {
       let poss = ()
@@ -62,7 +47,7 @@
       }
       for pin-name in pin-group {
         let elems = query(
-          selector(_pin-label(loc, pin-name)),
+          selector(_pin-label(here(), pin-name)),
         )
         assert(elems.len() > 0, message: "Pin not found: " + repr(pin-name))
         poss.push(elems.at(0).location().position())
@@ -78,7 +63,7 @@
       }
     }
     callback(..positions)
-  })
+  }
 }
 
 /// Place content at a specific location on the page relative to the pin.

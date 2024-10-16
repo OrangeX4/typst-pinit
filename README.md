@@ -104,11 +104,17 @@ Note that typst's code highlighting breaks up the text, causing overly complex r
 
 However, you may want to consider putting it in a comment to avoid highlighting the text and breaking it up.
 
----
 
-**Warning: You should add a blank line before the `#pinit-xxx` function call, otherwise it will cause misalignment.**
+## Notice
 
----
+**Since Typst does not provide a reliable `absolute-place` function, you may consider taking the following steps if a MISALIGNMENT occurs:**
+
+1. **You could try to add a `#box()` after the `#pinit-xxx` function call, like `#pinit-xxx()#box()`.**
+2. **You should add a blank line before the `#pinit-xxx` function call, otherwise it will cause misalignment.**
+3. **You can try moving `#pinit-xxx()` in front of or behind `#pin()`, or otherwhere, in short, try more.**
+4. **Try to add a offset to the `dx` or `dy` argument of `#pinit-xxx` function by yourself.**
+5. **Open an issue if you have any questions you can't solve.**
+
 
 ## Outline
 
@@ -120,6 +126,7 @@ However, you may want to consider putting it in a comment to avoid highlighting 
     - [Examples](#examples)
     - [Fletcher support](#fletcher-support)
     - [Pinit for raw](#pinit-for-raw)
+  - [Notice](#notice)
   - [Outline](#outline)
   - [Reference](#reference)
     - [`pin`](#pin)

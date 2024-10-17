@@ -28,7 +28,7 @@ The idea of pinit is pinning pins on the normal flow of the text, and then placi
 For example, we can highlight text and add a tip by pins simply:
 
 ```typ
-#import "@preview/pinit:0.2.1": *
+#import "@preview/pinit:0.2.2": *
 
 #set text(size: 24pt)
 
@@ -44,7 +44,7 @@ A simple #pin(1)highlighted text#pin(2).
 If you want to place the content relative to the center of some pins, you use a array of pins:
 
 ```typ
-#import "@preview/pinit:0.2.1": *
+#import "@preview/pinit:0.2.2": *
 
 #set text(size: 12pt)
 
@@ -69,7 +69,7 @@ A more complex example, Have a look at the source [here](./examples/equation-des
 [`pinit-fletcher-edge`](#pinit-fletcher-edge)
 
 ```typst
-#import "@preview/pinit:0.2.1": *
+#import "@preview/pinit:0.2.2": *
 #import "@preview/fletcher:0.5.1"
 
 Con#pin(1)#h(4em)#pin(2)nect
@@ -145,6 +145,8 @@ However, you may want to consider putting it in a comment to avoid highlighting 
     - [`double-arrow`](#double-arrow)
     - [`pinit-fletcher-edge`](#pinit-fletcher-edge)
   - [Changelog](#changelog)
+    - [0.2.2](#022)
+    - [0.2.1](#021)
     - [0.2.0](#020)
     - [0.1.4](#014)
     - [0.1.3](#013)
@@ -576,6 +578,15 @@ Draw a connecting line or arc in an fletcher arrow diagram.
 
 
 ## Changelog
+
+### 0.2.2
+
+- Fix bugs.
+
+
+### 0.2.1
+
+- To be compatible with Typst 0.12.
 
 
 ### 0.2.0

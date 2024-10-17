@@ -1,6 +1,6 @@
 [package]
 name = "pinit"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["OrangeX4"]
 entrypoint = "lib.typ"
 exclude = ["./examples"]

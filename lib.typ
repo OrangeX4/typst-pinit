@@ -167,14 +167,16 @@
     end,
     callback: (start-pos, end-pos) => {
       absolute-place(
+        dx: start-pos.x + start-dx,
+        dy: start-pos.y + start-dy,
         simple-arrow(
           start: (
-            start-pos.x + start-dx,
-            start-pos.y + start-dy,
+            0em,
+            0em,
           ),
           end: (
-            end-pos.x + end-dx,
-            end-pos.y + end-dy,
+            end-pos.x + end-dx - (start-pos.x + start-dx),
+            end-pos.y + end-dy - (start-pos.y + start-dy),
           ),
           ..args,
         ),
@@ -206,14 +208,16 @@
     end,
     callback: (start-pos, end-pos) => {
       absolute-place(
+        dx: start-pos.x + start-dx,
+        dy: start-pos.y + start-dy,
         double-arrow(
           start: (
-            start-pos.x + start-dx,
-            start-pos.y + start-dy,
+            0em,
+            0em,
           ),
           end: (
-            end-pos.x + end-dx,
-            end-pos.y + end-dy,
+            end-pos.x + end-dx - (start-pos.x + start-dx),
+            end-pos.y + end-dy - (start-pos.y + start-dy),
           ),
           ..args,
         ),
